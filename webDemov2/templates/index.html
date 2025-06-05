@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Phishing URL Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Safe Browsing Confirmation</h1>
+        <p>Check your link whether it is legitimate or not</p>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="search-box">
+            <h2>Check site status</h2>
+            <form method="POST" action="{{ url_for('index') }}">
+                <div class="input-group">
+                    <input type="text" name="url" placeholder="Search by URL" required value="{{ url }}">
+                    <button type="submit">🔍</button>
+                </div>
+            </form>
+
+            {% if result_display %}
+                <h3>{{ result_display }}</h3>
+
+                {% if confidence is not none %}
+                    <p>Confidence: <strong>{{ confidence }}%</strong></p>
+                {% endif %}
+
+                {% if real_url and real_url != url %}
+                    <p>Redirected to: <strong>{{ real_url }}</strong></p>
+                {% endif %}
+
+                <!-- Report Incorrect Prediction Form -->
+                {% if prediction_label %} {# Chỉ hiển thị form báo cáo nếu có dự đoán #}
+                <div class="report-form">
+                    <h4>Wrong Prediction? Help us improve:</h4>
+                    <form method="POST" action="{{ url_for('report') }}">
+                        <input type="hidden" name="reported_url" value="{{ real_url or url }}">
+
+                        <div class="form-group">
+                            <label for="model_prediction">URL checked:</label>
+                            <input type="text" id="displayed_url" value="{{ real_url or url }}" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="model_prediction">Model's Prediction:</label>
+                            <select id="model_prediction" name="model_prediction" readonly disabled>
+                                <option value="Phishing" {% if prediction_label == "Phishing" %}selected{% endif %}>Phishing</option>
+                                <option value="Safe" {% if prediction_label == "Safe" %}selected{% endif %}>Safe</option>
+                            </select>
+                            <!-- Hidden input để gửi giá trị thực sự vì select bị disabled -->
+                            <input type="hidden" name="model_prediction" value="{{ prediction_label }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_label">Correct answer according to you:</label>
+                            <select id="user_label" name="user_label" required>
+                                <option value="" disabled selected>-- Result --</option>
+                                <option value="Phishing">Phishing</option>
+                                <option value="Safe">Safe</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="report-button">Send Report</button>
+                    </form>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

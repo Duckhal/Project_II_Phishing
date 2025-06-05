@@ -1,0 +1,193 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    text-align: center;
+    color: #222;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.search-box {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-box h2 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Cho form báo cáo */
+    justify-content: center;
+    align-items: center;
+}
+/* Dành riêng cho form tìm kiếm */
+.search-box > form:first-of-type {
+    flex-direction: row;
+}
+
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px; /* Thêm khoảng cách nếu cần */
+}
+
+input[type="text"], select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    width: 400px; /* Hoặc 100% nếu muốn full width trong form group */
+    box-sizing: border-box;
+}
+.search-box > form:first-of-type input[type="text"] {
+     border-right: none;
+     border-radius: 4px 0 0 4px;
+}
+
+
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    color: #4285f4;
+    transition: background-color 0.3s;
+}
+.search-box > form:first-of-type button {
+    border-left: none;
+}
+
+
+button:hover {
+    background-color: #e0e0e0;
+}
+
+h3 {
+    color: #006621; /* Sẽ bị ghi đè nếu result là phishing */
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+/* Định dạng nhãn "Kết quả:" */
+/* h3::before {
+    content: "Kết quả: ";
+    color: #555;
+} */
+
+/* Flash Messages Styling */
+.flash-messages {
+    margin-bottom: 20px;
+}
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert-warning { /* Thêm nếu bạn dùng 'warning' category */
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+
+/* Report Form Styling */
+.report-form {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    text-align: left; /* Căn trái nội dung form báo cáo */
+}
+
+.report-form h4 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.report-form .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.report-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+.report-form input[type="text"],
+.report-form select {
+    width: 100%; /* Full width */
+}
+
+.report-form input[readonly],
+.report-form select[readonly] { /* Thêm select[readonly] */
+    background-color: #e9ecef;
+    opacity: 1;
+    cursor: not-allowed;
+}
+.report-form select[disabled] { /* Thêm select[disabled] */
+    background-color: #e9ecef;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+.report-form .report-button {
+    display: block;
+    width: auto; /* Hoặc 100% nếu muốn nút full width */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 10px auto 0; /* Căn giữa nút */
+    transition: background-color 0.3s;
+}
+
+.report-form .report-button:hover {
+    background-color: #0056b3;
+}
